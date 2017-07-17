@@ -50,8 +50,9 @@ def purge(body, tabfig, endings, sections):
                 kind = text(element).text.split(" ")[0]                             # LOGIC C = tables with varying loads...
                 caption = ''.join(text(element).text_content().split("\r\n")[1:])   # LOGIC C = ook tables van buckling? :D            
                 if not (kind == "TABLE" and last_kind == "FIGURE" and caption == last_caption): # LOGIC C
-                    remove(element)                             # LOGIC B
-                    second_element = True                       # LOGIC B
+                    if kind == "TABLE" or kind == "FIGURE":                                             # LOCIC D: keep things that are neither table nor figure
+                        remove(element)                             # LOGIC B
+                        second_element = True                       # LOGIC B
             last_caption = caption                                                  # LOGIC C
             last_kind = kind                                                        # LOGIC C
 
